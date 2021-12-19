@@ -8,6 +8,7 @@ img {
   
 }
 
+
 .container { 
   display: flex;
   align-items: center;
@@ -20,6 +21,7 @@ img {
   height: 80px;
   width: 100%;
   }
+
 
 .header-text {
     padding-bottom: 10px; 
