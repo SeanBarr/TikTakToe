@@ -1,0 +1,152 @@
+<html>
+
+<head>
+    <title>Tic-Tac-Toe Exercise In React</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="proxima-nova-web-fonts-master/fonts/fonts.css" />
+</head>
+
+    <body>
+        <div class="container">
+            <img src="mitxprologo.jpg" alt="MIT XPro Logo" width="250px" height="80px">
+            <h1 class="header-text">Tic-Tac-Toe Exercise in React</h1>
+        </div>
+        <p>Please review the concepts covered this week.</p>
+
+        <h2 id="state-management-for-tracking-players-on-a-game-board">State Management for Tracking Players on a Game Board</h2>
+<p>When you were first going through the Tic-tac-toe game with Dr. Williams, you tried to manage state through using a simple onClick event to update the player&#39;s number on the game board. </p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> <span class="hljs-type">Board</span> = () =&gt; {
+    <span class="hljs-keyword">let</span> player = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">let</span> status = `<span class="hljs-type">Player</span> ${player}`;
+    <span class="hljs-keyword">return</span> (
+        &lt;<span class="hljs-keyword">div</span>
+        className=<span class="hljs-string">"game-board"</span>
+        onClick={e =&gt; {
+            player = player + <span class="hljs-number">1</span>;
+            status = `<span class="hljs-type">Player</span> ${player}`;
+        &gt;&lt;/<span class="hljs-keyword">div</span>&gt;
+
+        &lt;<span class="hljs-keyword">div</span> id=<span class="hljs-string">"info"</span>&gt;
+            &lt;h1&gt;{status}&lt;/h1&gt;
+        &lt;/<span class="hljs-keyword">div</span>&gt;
+    )
+}
+
+<span class="hljs-type">ReactDOM</span>.render(&lt;<span class="hljs-type">Board</span>/&gt;, document.getElementById(<span class="hljs-string">"root"</span>))
+</code></pre>
+<p>But that didn't work, because React didn't render the state of the players into the DOM, since there was no state management at play. React simply doesn't know to re-render at this time.
+    The way to fix this is by adding state management with useState, which renders the state of the players into the DOM on the first render.  React then watches any variable set with useState, to know whether to trigger a 
+re-render if its changed.  </p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> Board = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">//useState only fires the first time this component is rendered!</span>
+    <span class="hljs-keyword">const</span> [player, setPlayer] = React.useState(<span class="hljs-number">0</span>);
+    <span class="hljs-keyword">let</span> status = <span class="hljs-string">`Player <span class="hljs-subst">${player}</span>`</span>;
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"game-board"</span>
+        <span class="hljs-attr">onClick</span> = <span class="hljs-string">{(e)</span> =&gt;</span> {
+            setPlayer(player +1);
+            status = `Player ${player}`;
+        }}
+        &gt;
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"info"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{status}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    );
+}
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Board</span>/&gt;</span></span>, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"root"</span>));
+</code></pre>
+
+<h2 id="creating-child-button-elements-on-a-game-board">Creating Child Button Elements on a Game Board</h2>
+<p>It's possible to create child elements of a game board as individual cells or squares. In the Tic-tac-toe game, Professor Willams does this by creating a separate Square component, but renders those squares on the Board component using a function called &quot;renderSquare&quot;. In this way, the individual squares become children of the board component. </p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> Square = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+  )
+}
+
+<span class="hljs-keyword">const</span> Board = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">//useState only fires the first time this component is rendered!</span>
+    <span class="hljs-keyword">const</span> [player, setPlayer] = React.useState(<span class="hljs-number">0</span>);
+    <span class="hljs-keyword">let</span> status = <span class="hljs-string">`Player <span class="hljs-subst">${player}</span>`</span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderSquare</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Square</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Square</span>&gt;</span></span>
+    }
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"game-board"</span>
+        <span class="hljs-attr">onClick</span> = <span class="hljs-string">{(e)</span> =&gt;</span> {
+            setPlayer((player +1) % 2);
+            status = `Player ${player}`;
+        }}
+        &gt;
+         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"grid-row"</span>&gt;</span>
+            {renderSquare(0)}{renderSquare(1)}{renderSquare(2)}
+         <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"info"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{status}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    );
+}
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Board</span>/&gt;</span></span>, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"root"</span>));
+</code></pre>
+
+<p>Here is what the above code looks like when rendered onto the browser. </p>
+<p><img src="./child-squares-row.png" alt="grid-row-squares" width=600px;></p>
+
+<h2 id="passing-properties-from-a-parent-to-a-child-component">Passing Properties from a Parent Component to a Child Component</h2>
+<p>In the Tic-tac-toe game, Dr. Williams sets a square&#39;s id inside of the board component&#39;s &#39;renderSquare&#39; function. This is then passed to the child square component through its properties. This code example breaks down how this is done. </p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> Square = <span class="hljs-function">(<span class="hljs-params">props</span>) =&gt;</span> { <span class="hljs-comment">//the properties of the square are passed in as arguments</span>
+  <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>{props.id}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span> <span class="hljs-comment">//the id is set via the props</span>
+  )
+}
+
+<span class="hljs-keyword">const</span> Board = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> [player, setPlayer] = React.useState(<span class="hljs-number">0</span>);
+    <span class="hljs-keyword">let</span> status = <span class="hljs-string">`Player <span class="hljs-subst">${player}</span>`</span>;
+    <span class="hljs-comment">//this is where the id of each square is set</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderSquare</span>(<span class="hljs-params">i</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Square</span> <span class="hljs-attr">id</span>=<span class="hljs-string">{i}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Square</span>&gt;</span></span>
+    } 
+    ...}
+</code></pre>
+
+<p>Here's what the game looks like so far:</p>
+<img src='./button-id.png' alt="buttons-with-id" width=600px>
+    </body>
+
+    <h2 id="keeping-state-for-each-square">Keeping State for Each Square</h2>
+<p>In the Tic-tac-toe game, each square keeps track of its own state through useState, which you've touched on before in this course. To refresh, here's a code snippet where each square tracks its own state and can change its color while <em>still tracking its own state</em> on the button clicks. </p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> Square = <span class="hljs-function">(<span class="hljs-params">props</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> [color,setColor] = React.useState(<span class="hljs-string">"green"</span>);
+    <span class="hljs-keyword">const</span> palet = [<span class="hljs-string">'red'</span>, <span class="hljs-string">'blue'</span>, <span class="hljs-string">'green'</span>];
+    <span class="hljs-keyword">const</span> getRandomColor = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> palet[<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">3</span>)]
+
+  <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> 
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{(e)</span>=&gt;</span>{
+          setColor(getRandomColor());
+          e.target.style.background = color;
+      }}
+      &gt;
+
+      {props.id}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h2 id="other-previously-covered-concepts-">Other Previously Covered Concepts.</h2>
+<p>In this week&#39;s lesson, you encountered several other concepts that you&#39;ve seen in previous week&#39;s lessons. These include concepts such as:</p>
+<ul>
+<li>useState</li>
+<li>useEffect</li>
+<li>inheritance </li>
+<li>parents and children </li>
+<li>callback functions </li>
+</ul>
+<p>For further reference, go back to your earlier week&#39;s lessons and summary sheets. </p>
+
+<p class="footer">© MIT xPRO 2020. All rights reserved.</p>
+</html>
