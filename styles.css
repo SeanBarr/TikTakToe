@@ -1,3 +1,7 @@
+body {
+    min-height: 100vh;
+}
+
 button {
     background-color:#fee36e;
     border: 6px solid #0049B7;
