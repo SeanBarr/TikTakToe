@@ -5,11 +5,10 @@ const Board = () => {
   const [gameState, setGameState] = React.useState([]);
   let status = `Winner is ${checkForWinner(gameState)}`;
 
-  // Part 1 step 1 code goes here
   // Use conditional logic to set a variable to either 'Player O' or  'Player X'
-  let playerTurn = `Next Player: ${player == '0' ? 'Player O' : 'Player X'}`;
+  let playerTurn = `Next Player: ${player == '0' ? 'Player X' : 'Player O'}`;
 
-  console.log(`We hav a winner ${status}`);
+  console.log(`We have a winner ${status}`);
 
   const takeTurn = (id) => {
     setGameState([...gameState, { id: id, player: player }]);
@@ -39,8 +38,8 @@ const Board = () => {
         {renderSquare(8)}
       </div>
       <div id="info">
-        <h1 id="turn">{playerTurn}</h1>
-        <h1>{status}</h1>
+        <h1 class="h1" id="turn">{playerTurn}</h1>
+        <h1 class="h1">{status}</h1>
       </div>
     </div>
   );
@@ -58,7 +57,7 @@ const Square = ({ takeTurn, id }) => {
   return (
     <button
       // Part 2: update the return statement below to add css classes
-      className={tik == '1' ? 'red' : 'white'}
+      className={tik == '1' ? 'red' : tik == '0' ? 'white' : ''}
       onClick={() => {
         setTik(takeTurn(id));
         setFilled(true);

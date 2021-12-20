@@ -3,50 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>React Tik Tak Toe</title>
-    <style>
-      button {
-        background-color:#fee36e;
-        border: 6px solid #ceb92c;;
-        border-radius: 10px;
-      }
-      .game-board {
-        width: 600px;
-        height: 600px;
-        margin: 0 auto;
-        background-color: #0049B7;
-        color: #c29591;
-        border: 6px solid #A96762;
-        border-radius: 10px;
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-columns: 1fr;
-      }
-
-      .grid-row {
-        border: 6px solid #a28089;
-        border-radius: 6px;
-        font-family: Helvetica;
-        font-weight: bold;
-        font-size: 4em;
-        display: grid;
-        grid-template-rows: 1fr;
-        grid-template-columns: 1fr 1fr 1fr;
-        background-color: #A96762;
-      }
-      .block {
-        background-color: #A96762;
-        border: 6px solid #ceb92c;
-        border-radius: 6px;
-        font-family: Helvetica;
-        font-weight: bold;
-        font-size: 20em;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css">
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <h1>React Tik Tak Toe</h1>
+    <h1 class="h1">React Tik Tak Toe</h1>
 
     <!-- We will put our React component inside this div. -->
     <div id="root"></div>
