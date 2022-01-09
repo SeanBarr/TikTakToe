@@ -10,7 +10,8 @@ Roadmap of Future Improvements:
 1. Add functional component to generate unique Tic-Tak-Toe boards with a new game. 
 2. Improving the scoreboard and including a leaderboard. 
 
-To Run: Git Clone: git@github.com:SeanBarr/tik-tak-toe.git
+To clone the repo use the following command: 
+git clone github.com/SeanBarr/tik-tak-toe.git
 
 Please use following link to access site: https://seanbarr.github.io/tik-tak-toe/
 
